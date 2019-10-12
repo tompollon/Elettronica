@@ -8,7 +8,8 @@
 \usepackage{mathrsfs}
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb}
- 
+\usepackage{circuitikz} % PACKAGE for circuit desing
+ % http://texdoc.net/texmf-dist/doc/latex/circuitikz/circuitikzmanual.pdf
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\C}{\mathbb{C}}
@@ -45,15 +46,42 @@
 \title{Electronic\\
 Formulas and utilities}
 \author{Tommaso Polloni\\
-and other contributors} 
+and } %inserisci il tuo nome Ale 
  
+ The very first idea is to make this document a learning tool for git and Electronics. I will be very proud of ourselves if we
+ reach to maintain English as its primary language. Let's do it!
 \maketitle
 
 
+\section{Semiconductors}
+Semiconductors are material with an electrical conductivity value falling between that of a conductor and an insulator.
+An important property of semiconductors is that, during a temperature increment, their resistance decreases.
+Common semiconductors material are:
+\begin{itemize}
+	\item Silicon, Si. Atomic number = 14. IV ($14^{th}$) group.
+	\item Germanium, Ge. Atomic number = 32. IV ($14^{th}$) group
+	\item Gallium Arsenide, GaAs, a compound of Gallium and Arsenic.
+\end{itemize}
 
+\subsection{Doping}
+The doping process consists in significantly change the number of \textit{electrons }or \textit{holes} in a semiconductor.
+This result is achieved inserting atoms of the doping element in the crystalline arrangement of the doped.
+\subsubsection{Utilities and numbers}
+\begin{itemize}
+	\item $N_{d} \approxeq 10^{12} : 10^{20} cm^{-3}$ number of donors
+	\item $p 	[\dfrac{electrons}{cm^3}]$ number of holes 
+	\item $n 	[\dfrac{electrons}{cm^3}]$ number of electrons 
+\end{itemize}
 
+TO ADD: the part regarding mobility and resistance.
 
-
+\section{Diodes}
+Diodes are defined as a p-n junction.
+\begin{circuitikz}2
+	\draw (0,0) to[Do, l=$Diode$, i>^=$i$, v = $v$] (2,0);3
+\end{circuitikz}
+Is is made by two parts: the left part (according to the figure) is a p-doped semiconductor in which there are holes left.
+The other part, on the contrary, is n-doped in which there are electrons left. 
 
 % --------------------------------------------------------------
 %                         Sample structures
