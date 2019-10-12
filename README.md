@@ -1,3 +1,11 @@
 # Elettronica
 Formule e best practises presso COMO
-Non ho ancora ben capito come fare a shareare le cose quassù ma fa niente
+
+
+INFO UTILI PER L'UTILIZZO:
+
+1. Fork the repository: ovvero copiare la repository sul pc
+https://help.github.com/en/articles/fork-a-repo
+
+2. Aggiungere files alla repository:
+https://help.github.com/en/articles/adding-a-file-to-a-repository-using-the-command-line
