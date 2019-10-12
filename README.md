@@ -2,7 +2,7 @@
 Formule e best practises presso COMO
 
 
-INFO UTILI PER L'UTILIZZO:
+INFO UTILI:
 
 1. Fork the repository: ovvero copiare la repository sul pc
 https://help.github.com/en/articles/fork-a-repo
