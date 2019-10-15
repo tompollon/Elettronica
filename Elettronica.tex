@@ -10,10 +10,18 @@
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{circuitikz} % PACKAGE for circuit desing
  % http://texdoc.net/texmf-dist/doc/latex/circuitikz/circuitikzmanual.pdf
+\usepackage{imakeidx} %for generating the index file
+
+% short command section: use \N to generate the \mathbb{N} command
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\R}{\mathbb{R}}
+\newcommand{\B}{\textbf}
+\newcommand{\I}{\textit}
+\newcommand{\bite}{\begin{itemize}} %Begin ITEmize
+\newcommand{\fite}{\end{itemize}}   %Finisch ITEmize
+
 
 \DeclareMathOperator{\sech}{sech}
 \DeclareMathOperator{\csch}{csch}
@@ -37,31 +45,50 @@
 \newenvironment{corollary}[2][Corollary]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
  
+ \makeindex
+ 
 \begin{document}
  
 % --------------------------------------------------------------
 %                         Start here
 % --------------------------------------------------------------
  
-\title{Electronic\\
+\title{Introduction to Electronics\\
 Formulas and utilities}
 \author{Tommaso Polloni\\
-and } %inserisci il tuo nome Ale 
+and }
  
- The very first idea is to make this document a learning tool for git and Electronics. I will be very proud of ourselves if we
- reach to maintain English as its primary language. Let's do it!
+ The very first idea is to make this document a learning tool for git, latex and, of course, of Electronics. I will be very proud of ourselves if we reach to maintain English as its primary language.
 \maketitle
+\tableofcontents
 
-
-\section{Semiconductors}
+\section{Semiconductors} \index{Semiconductors}
 Semiconductors are material with an electrical conductivity value falling between that of a conductor and an insulator.
 An important property of semiconductors is that, during a temperature increment, their resistance decreases.
 Common semiconductors material are:
 \begin{itemize}
-	\item Silicon, Si. Atomic number = 14. IV ($14^{th}$) group.
+	\item \index{Silicon}Silicon, Si. Z (i.e. atomic number) = 14. IV ($14^{th}$) group.
 	\item Germanium, Ge. Atomic number = 32. IV ($14^{th}$) group
 	\item Gallium Arsenide, GaAs, a compound of Gallium and Arsenic.
 \end{itemize}
+
+\subsection{Semiconductors: a nuclear approach}
+A neutral Silicon atom possesses 14 protons and many electrons.
+\begin{itemize}
+	\item the first 10 of them lies in the first energy level: they fit perfectly around the nucleus and  are not involved in chemical reactions or anything (because very high energy is necessary to interact with them).
+	\item the remaining 4 electrons are called \textit{valence electrons}\index{valence electrons} and are at higher energy levels. They are involved in the \textit{covalent bond}.
+\end{itemize}
+When temperature is near at the absolute zero ($-273^o C$) the Silicon atoms assume a crystal form in which every \textit{valence electron} is shared with the nearest 4 atoms of Silicon, with a covalent bond: in this circumstance Silicon act as an \textbf{insulator}.
+At higher temperatures, the atoms get energy from the outside: \textbf{1 eV} is the energy amount necessary for breaking a covalent bond. 
+\subsubsection{Electrons and Holes}
+When the break happens, an electron \I{jumps} to valence band and a hole is generated (note that the semiconductor remains neutral). Remember that the hole is in fact the absence of an electron, and it may be referred to as a \B{cation}, an atom with positive charge. 
+\subsubsection{Valence and conduction bands}
+Without the necessary energy, electrons remain under the \I{Fermi level}, in a zone called \I{Valence Band}; when the \I{jump} occurs, electrons step over the \I{Fermi level} and stay in the \I{conduction band}. In the conduction band charge carrier have less constraints and can easily move in the crystalline lattice, depending on the intensity of the electro-magnetic field.
+\subsubsection{Silicon properties}
+\bite
+	\item To complete \index{TO DO}
+	\item It is compatible with $SiO_2$ and $Al$
+\fite
 
 \subsection{Doping}
 The doping process consists in significantly change the number of \textit{electrons }or \textit{holes} in a semiconductor.
@@ -129,5 +156,9 @@ Then integrate along $\gamma(\theta)=Re^{i\theta}$ for $\theta\in [0,2\pi]$ to g
 Hence, $|C_k|\leq \frac{M}{R^k}$.
 \end{solution}
 \pagebreak
+
+
+
+\printindex
 
 \end{document}
