@@ -12,6 +12,7 @@
  % http://texdoc.net/texmf-dist/doc/latex/circuitikz/circuitikzmanual.pdf
 \usepackage{imakeidx} %for generating the index file
 
+
 % short command section: use \N to generate the \mathbb{N} command
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -20,7 +21,7 @@
 \newcommand{\B}{\textbf}
 \newcommand{\I}{\textit}
 \newcommand{\bite}{\begin{itemize}} %Begin ITEmize
-\newcommand{\fite}{\end{itemize}}   %Finisch ITEmize
+\newcommand{\fite}{\end{itemize}}   %Finish ITEmize
 
 
 \DeclareMathOperator{\sech}{sech}
@@ -52,6 +53,7 @@
 % --------------------------------------------------------------
 %                         Start here
 % --------------------------------------------------------------
+ 
  
 \title{Introduction to Electronics\\
 Formulas and utilities}
@@ -109,6 +111,44 @@ Diodes are defined as a p-n junction.
 \end{circuitikz}
 Is is made by two parts: the left part (according to the figure) is a p-doped semiconductor in which there are holes left.
 The other part, on the contrary, is n-doped in which there are electrons left. 
+
+\newpage
+\section{FORMULAS}
+\subsection{Electric field and semiconductors}
+%\begin{multicols}{2}
+Electrostatic force between two charges $q_1 q_2$ at a distance $r$: \index{Electromagnetic Force} \begin{equation}
+	F = \frac{1}{4\pi\epsilon_0}\frac{q_1q_2}{r^2}
+\end{equation} \\ 
+The \index{Electric Field}Electric field (as the force which a charge $q$ is subjected to in a point of the space divided by the charge $q$) = \begin{equation}
+	E = \frac{F}{q} = \frac{1}{4\pi\epsilon_0}\frac{Q}{r^2}
+\end{equation} Note that the Electric field is a \B{CONSERVATIVE FIELD}\\
+\index{Conservative field}A conservative field is a field in which the \I{Work} done for placing an element from a point $a$ to a point $b$ depends only from the different location of $a$ and $b$ and not by the route done.\\
+The \I{Work} in a conservative field is defined as follows:
+\begin{equation}
+	W_{a\to b} = \int_{a}^{b} \overrightarrow{F}(x)dx = q (V_b - V_a)d
+\end{equation}
+
+
+
+
+
+
+
+%\end{multicols}
+
+
+\newpage
+\section{Engineer's corner}
+\subsection*{Question 1: How much is $1 C$?}
+At first attempt we can say that 1 $Coulomb$ is \I{very} approximately $10^{19}$ times the fundamental charge unit (the electron). However it is a bit difficult rendering the idea of $10^{19}$ electrons. \\
+Thinking about batteries, a common \I{AAA} battery has a capacity of 540 $mAh$, which are equivalent to 1944 $C$. \\
+A common \I{AA} battery has a charge of 9 $kC$. \\
+In everyday terms, a Coulomb is $\frac{1}{2000}$ times the charge occurring to empty a normal AAA battery.
+
+
+
+
+
 
 % --------------------------------------------------------------
 %                         Sample structures
