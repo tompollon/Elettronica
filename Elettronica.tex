@@ -11,6 +11,8 @@
 \usepackage{circuitikz} % PACKAGE for circuit desing
  % http://texdoc.net/texmf-dist/doc/latex/circuitikz/circuitikzmanual.pdf
 \usepackage{imakeidx} %for generating the index file
+\usepackage{pgfplots} %utility for plotting
+
 
 
 % short command section: use \N to generate the \mathbb{N} command
@@ -45,6 +47,9 @@
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
 \newenvironment{corollary}[2][Corollary]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\pgfplotsset{compat = 1.9}
+ 
  
  \makeindex
  
@@ -74,6 +79,66 @@ Common semiconductors material are:
 	\item Gallium Arsenide, GaAs, a compound of Gallium and Arsenic.
 \end{itemize}
 
+\subsection{Movement analysis of electric charge in a semiconductor bar}
+Given a bar of length $\ell$, and an Electric field $E$, every electron in valence band will be affected by a force $F = q \cdot E$, and thus its acceleration $a$ will be, until the electron is subjected to the Electric field, $a(t)= \frac{F}{m} = \frac{q \cdot E}{m}$; being this quantity a constant respect to time, the speed will be a straight line with angular coefficient $m = a = \frac{E}{q \cdot m}$:
+\begin{equation}
+	v(t) = \frac{q \cdot E}{m} \cdot t = a \cdot t
+\end{equation}
+However, scientists have observed that during its path to freedom (i.e. the end of the bar), the electrons hit some nucleus, this resetting their speed (and, by consequence, kinetic energy) to zero. 
+
+\index{TO DO} look up the axis measures and ticks to make it realistic. 
+\begin{center}
+\begin{tikzpicture}
+\title{Evolution of electrons' speed after a hit}
+\begin{axis}[
+axis lines = left,
+xlabel = $t$,
+ylabel = {$v(t)$},
+xmin=0,
+xmax=11,
+xtick={0, 1,...,9},
+]
+%Below the red line is defined
+\addplot [
+domain=0:3, 
+samples=100, 
+color=red,
+]
+{10*x};
+\addlegendentry{Evolution of $v(t)$ after a hit}
+%Here the blue line is defined
+\addplot [
+domain=3:9,
+color=red,
+]
+{10*x -30};
+%\addlegendentry{after the first hit}
+
+\node[label={180:{HIT!}},circle,fill=red,inner sep=2pt] at (axis cs:3,30) {};
+\node[label={90:{$\ell$}},circle,fill,inner sep=1pt] at (axis cs:9,0) {};
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+In a difficult way, the average speed of the electrons can be expressed by the area underlying the red line divided by the total amount of time: $\bar{v}$ of function $v(t)$ is $\frac{1}{t_1}\int_{0}^{t_1} v(t) \cdot dt$.\\
+In an easier way we can observe that between the $i-1^{th}$  and the $i^{th}$ hit $\bar{v_i} = \frac{h}{2} = \frac{a\cdot \Delta t}{2}$, and so $\bar{v} = \frac{\bar{h}}{n}= \frac{\sum a \cdot \Delta t}{n} = a \cdot \bar{t}$, where $n$ is the number of hits and $\bar{t}$ is the \I{average flying time}. 
+By consequence
+\begin{equation}
+	\bar{v} = a \cdot \bar{t} = \frac{\bar{t} \cdot q}{m}\cdot E = \mu \cdot E
+\end{equation}  
+Where we introduce the \index{Electron mobility} Electron mobility $\mu$, that depends on $\bar{t}$, which is a material constant.
+\begin{equation}
+	\mu = \ [\frac{cm^2}{V \cdot s}]
+\end{equation}  
+Mobility is a constant even for \B{holes} and usually it is related to electron mobility my the law
+\begin{equation}
+	\mu_p = 3\mu_n
+\end{equation}
+where $\mu_p$ is the \I{electron mobility} and $\mu_n$ is the \I{holes mobility} \index{Holes Mobility}. This doesn't surprise ourself because holes "move" in \I{valence band}, while electrons move in \I{conductance band}, in which the movement is "less obstructed by nuclei.  
+
+
+
+
 \subsection{Semiconductors: a nuclear approach}
 In 1913 Niehls Bohr \index{Nihels Bohr} proposed a model of atom in which \I{quantization of the angular momentum} \index{angular momentum} explained some interesting results regarding the light emitted by Hydrogen atoms heated. This model is very useful to explain the internal structure of atoms and can tell us something even about Silicon. A neutral Silicon atom possesses 14 protons and many electrons.
 \begin{itemize}
@@ -85,7 +150,7 @@ At higher temperatures, (i. e. furnishing energy to the atom) covalent bounds ca
 \subsubsection{Electrons and Holes}
 When the break happens, an electron \I{jumps} from valence band to conduction band and a hole is generated. The conduction-band electron is now a \B{charge carrier} and the atom it left is a charged positively (cation). 
 \subsubsection{Valence and conduction bands}
-Without the necessary energy, electrons remain under the \I{Fermi level}, in a zone called \I{Valence Band}; when the \I{jump} occurs, electrons step over the \I{Fermi level} and stay in the \I{conduction band}. In the conduction band charge carrier have less constraints and can easily move in the crystalline lattice, depending on the intensity of the electro-magnetic field.
+Without the necessary energy, electrons remain under the \I{Fermi level}, in a zone called \I{Valence Band}. when the \I{jump} occurs, electrons step over the \I{Fermi level} and stay in the \I{conduction band}. In the conduction band charge carrier have less constraints and can easily move in the crystalline lattice, depending on the intensity of the electro-magnetic field.
 \subsubsection{Silicon properties}
 \bite
 	\item The amount of charge carriers in a $cm^3$ (i.e. electrons in the conduction band) at ambient temperature $n = 10^{10 cm^{-3}}$. It is reasonably a little number compared to the global amount of atoms in a Silicon $cm^3$ ($5 \ 10^22$). [Think that if atoms were people on earth, only 7 people would result a cation with the loss of their electron]. 
@@ -106,7 +171,7 @@ TO ADD: the part regarding mobility and resistance.
 
 \section{Diodes}
 Diodes are defined as a p-n junction.
-\begin{circuitikz}2
+\begin{circuitikz}
 	\draw (0,0) to[Do, l=$Diode$, i>^=$i$, v = $v$] (2,0);3
 \end{circuitikz}
 Is is made by two parts: the left part (according to the figure) is a p-doped semiconductor in which there are holes left.
@@ -115,29 +180,39 @@ The other part, on the contrary, is n-doped in which there are electrons left.
 \newpage
 \section{FORMULAS}
 \subsection{Electric field and semiconductors}
-%\begin{multicols}{2}
+
 Electrostatic force between two charges $q_1 q_2$ at a distance $r$: \index{Electromagnetic Force} \begin{equation}
 	F = \frac{1}{4\pi\epsilon_0}\frac{q_1q_2}{r^2}
 \end{equation} \\ 
-The \index{Electric Field}Electric field (as the force which a charge $q$ is subjected to in a point of the space divided by the charge $q$) = \begin{equation}
-	E = \frac{F}{q} = \frac{1}{4\pi\epsilon_0}\frac{Q}{r^2}
-\end{equation} Note that the Electric field is a \B{CONSERVATIVE FIELD}\\
-\index{Conservative field}A conservative field is a field in which the \I{Work} done for placing an element from a point $a$ to a point $b$ depends only from the different location of $a$ and $b$ and not by the route done.\\
-The \I{Work} in a conservative field is defined as follows:
-\begin{equation}
-	W_{a\to b} = \int_{a}^{b} \overrightarrow{F}(x)dx = q (V_b - V_a)d
-\end{equation}\\
-The \I{Potential energy} of a charge subjected to an Electric field is 
-\begin{equation}
-	U = q V [eV]
-\end{equation} and the measure unit is the electronVolt $eV$, where $1 eV = 1,6 \ 10^{-19} J$, the energy necessary to move an electron from a point $a$ to a point $b$ with $V_a-V_b= 1 V$.
+\index{Electric Field} The Electric field (as the force which a charge $q$ is subjected to in a point of the space divided by the charge $q$)
+	\begin{equation}
+		E = \frac{F}{q} = \frac{1}{4\pi\epsilon_0}\frac{Q}{r^2}
+	\end{equation} Note that the Electric field is a \B{CONSERVATIVE FIELD}\\
+\index{Conservative field} 
+	A conservative field is a field in which the \I{Work} done for placing an element from a point $a$ to a point $b$ depends only from the different location of $a$ and $b$ and not by the route done.\\
+
+\index{Work} The \I{Work} in a conservative field is defined as follows:
+		\begin{equation}
+			W_{a\to b} = \int_{a}^{b} \overrightarrow{F}(x)dx = q (V_b - V_a)d
+		\end{equation}\\
+\index{Potential Energy} The \I{Potential energy} of a charge subjected to an Electric field is 
+	\begin{equation}
+		U = q V [eV]
+	\end{equation} and the measure unit is the electronVolt $eV$, where $1 eV = 1,6 \ 10^{-19} J$, the energy necessary to move an electron from a point $a$ to a point $b$ with $V_a-V_b= 1 V$.
+
+\index{Electric Potential}The \I{Electric Potential} at a point $r$ in an Electric Field $E$ is given by 
+	\begin{equation}
+		V_E = -\int_{C}E \cdot \mathrm{d} \boldsymbol{\ell}
+	\end{equation}
+	Where $C$ is an arbitrary path from the point $r$ to the point with zero potential. \\
+
+\index{Electric Current} The \I{Electric Current} is defined as $i$ (from the french \I{intensité du courant}):
+	\begin{equation}
+		I = \frac{Q}{t} = \frac{V}{R} \ \ \ \ \ [Amp]
+	\end{equation}
 
 
 
-
-
-
-%\end{multicols}
 
 
 \newpage
