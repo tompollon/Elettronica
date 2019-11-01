@@ -1,21 +1,35 @@
 \documentclass[12pt]{article}
 
+% --------------------------------------------------------------
+%                       MUST HAVE PACKAGES
+% --------------------------------------------------------------
+\usepackage{graphicx} %handles images and other tools
+\usepackage{imakeidx} %handles index file
+\usepackage{hyperref} %handles hyperlinks
+\usepackage[skins,theorems]{tcolorbox} %coloured boxes
+\usepackage{siunitx} %SI units for ohm and others
+
+% --------------------------------------------------------------
+%                       PROJECT SPECIFIC PACKAGES
+% --------------------------------------------------------------
+\usepackage{circuitikz} %circuit desing
+% http://texdoc.net/texmf-dist/doc/latex/circuitikz/circuitikzmanual.pdf
+\usepackage{pgfplots} %plotting
+
+
 \usepackage{answers}
 \usepackage{setspace}
-\usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage{multicol}
 \usepackage{mathrsfs}
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb}
-\usepackage{circuitikz} % PACKAGE for circuit desing
- % http://texdoc.net/texmf-dist/doc/latex/circuitikz/circuitikzmanual.pdf
-\usepackage{imakeidx} %for generating the index file
-\usepackage{pgfplots} %utility for plotting
+
+%to include the folder in which images are
+\graphicspath{/images/}
 
 
-
-% short command section: use \N to generate the \mathbb{N} command
+% short command section:
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\C}{\mathbb{C}}
@@ -49,7 +63,8 @@
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
 
 \pgfplotsset{compat = 1.9}
- 
+\tcbset{highlight math style={enhanced,
+ 		colframe=red,colback=white,arc=0pt,boxrule=1pt}} %set the default box size colours
  
  \makeindex
  
@@ -60,12 +75,12 @@
 % --------------------------------------------------------------
  
  
-\title{Introduction to Electronics\\
-Formulas and utilities}
+\title{Introduction to Electronics:\\
+theory, formulas and utilities}
 \author{Tommaso Polloni\\
 and }
  
- The very first idea is to make this document a learning tool for git, latex and, of course, of Electronics. I will be very proud of ourselves if we reach to maintain English as its primary language.
+ The very first idea is to make this document a learning tool for git, latex and, of course, of Electronics. A primary goal is to maintain English as its unique language.
 \maketitle
 \tableofcontents
 
@@ -80,13 +95,13 @@ Common semiconductors material are:
 \end{itemize}
 
 \subsection{Movement analysis of electric charge in a semiconductor bar}
-Given a bar of length $\ell$, and an Electric field $E$, every electron in valence band will be affected by a force $F = q \cdot E$, and thus its acceleration $a$ will be, until the electron is subjected to the Electric field, $a(t)= \frac{F}{m} = \frac{q \cdot E}{m}$; being this quantity a constant respect to time, the speed will be a straight line with angular coefficient $m = a = \frac{E}{q \cdot m}$:
+Given a bar of length $\ell$, and an Electric field $E$, every electron in valence band will be affected by a force $F = q \cdot E$, and thus its acceleration $a$ will be, until the electron is subjected to the Electric field, $a(t)= \frac{F}{m} = \frac{q \cdot E}{m}$; being this quantity a constant respect to time, the speed will be a straight line with angular coefficient $m = a = \frac{q \cdot E}{ m}$:
 \begin{equation}
 	v(t) = \frac{q \cdot E}{m} \cdot t = a \cdot t
 \end{equation}
 However, scientists have observed that during its path to freedom (i.e. the end of the bar), the electrons hit some nucleus, this resetting their speed (and, by consequence, kinetic energy) to zero. 
 
-\index{TO DO} look up the axis measures and ticks to make it realistic. 
+\index{TO DO} \verb|NTtA [Note To the author]: Look up the axis measures and ticks to make it realistic. |
 \begin{center}
 \begin{tikzpicture}
 \title{Evolution of electrons' speed after a hit}
@@ -121,22 +136,69 @@ color=red,
 \end{tikzpicture}
 \end{center}
 In a difficult way, the average speed of the electrons can be expressed by the area underlying the red line divided by the total amount of time: $\bar{v}$ of function $v(t)$ is $\frac{1}{t_1}\int_{0}^{t_1} v(t) \cdot dt$.\\
-In an easier way we can observe that between the $i-1^{th}$  and the $i^{th}$ hit $\bar{v_i} = \frac{h}{2} = \frac{a\cdot \Delta t}{2}$, and so $\bar{v} = \frac{\bar{h}}{n}= \frac{\sum a \cdot \Delta t}{n} = a \cdot \bar{t}$, where $n$ is the number of hits and $\bar{t}$ is the \I{average flying time}. 
+In an easier way we can observe that between the $(i-1)^{th}$  and the $i^{th}$ hit $\bar{v_i} = \frac{h}{2} = \frac{a\cdot \Delta t}{2}$, and so $\bar{v} = \frac{\bar{h}}{n}= a \cdot \frac{\sum\Delta t}{n} = a \cdot \bar{t}$, where $n$ is the number of hits and $\bar{t}$ is the \I{average flying time}. 
 By consequence
 \begin{equation}
-	\bar{v} = a \cdot \bar{t} = \frac{\bar{t} \cdot q}{m}\cdot E = \mu \cdot E
+	\bar{v} = a \cdot \bar{t} = \frac{\bar{t} \cdot q}{m}\cdot E = \mu_p \cdot E
 \end{equation}  
-Where we introduce the \index{Electron mobility} Electron mobility $\mu$, that depends on $\bar{t}$, which is a material constant.
+\index{Carrier Mobility}
+Where we introduce the \index{Electron mobility} \B{\I{Electron Mobility}} $\mu_p$, that depends on $\bar{t}$, which is a material constant.
 \begin{equation}
-	\mu = \ [\frac{cm^2}{V \cdot s}]
+	\mu_p = \ [\frac{cm^2}{V \cdot s}]
 \end{equation}  
-Mobility is a constant even for \B{holes} and usually it is related to electron mobility my the law
+Mobility is a constant even for \B{holes} and usually it is related to electron mobility by the law
 \begin{equation}
-	\mu_p = 3\mu_n
+	\mu_p \sim 3\mu_n
 \end{equation}
-where $\mu_p$ is the \I{electron mobility} and $\mu_n$ is the \I{holes mobility} \index{Holes Mobility}. This doesn't surprise ourself because holes "move" in \I{valence band}, while electrons move in \I{conductance band}, in which the movement is "less obstructed by nuclei.  
+where $\mu_p$ is the \I{electron mobility} and $\mu_n$ is the \I{holes mobility} \index{Holes Mobility}. 
+The fact that $\mu_p > \mu_n$ doesn't surprise ourself because \B{holes} move in \I{valence band}, which is normally fulfilled of carriers, while \B{electrons} move in \I{conductance band}, where the movement is less influenced by other carriers and by nuclei.  
+\begin{center}
+	\includegraphics[width=7 cm]{mob.png}
+	\includegraphics[width=7 cm]{mobilityT} %https://pdfs.semanticscholar.org/82da/3c040072ae6643613b8f93da170c976effea.pdf
+	\\
+	In the figure we can observe that mobility is negatively influenced by doping \index{doping} concentration, but positively by temperature.
+	NOT TRUE, HAD TO BE REVIEWED \index{TO DO}
+\end{center}
 
+\subsubsection{Numerical analysis}
+Given a bar with:
+\begin{itemize}
+	\item left-side potential = 0 V
+	\item right-side potential = $+V$ (given by a generator)
+	\item bar lenght $\ell$ and area $A$
+\end{itemize}
+\index{TO DO} Check for signs in equations
+Being $V = -\int_{0}^{\ell}Ed\ell$ and assuming the electric field $E$ being constant in the bar, $V = -E\int_{0}^{\ell}d\ell = -E\cdot{\ell}$, so we can say $|E| = \frac{V}{\ell}$.\\
+By definition,
+\begin{equation}
+	I = \frac{\Delta Q}{t} = I_n + I_p
+\end{equation} where $t$ is the transit-time and $I_n$, $I_p$ being relatively the current generated by negative carriers going to the right side of the bar (electrons) and by positive carriers going to the left side of the bar (holes). 
+\subsubsection{$I_n$}
+$I_n = \frac{q \cdot number \ of \ electrons}{t_{tr}}$. Being $number of electrons = n \cdot v$, where $n$ is the electrons concentration in the semiconductor bar $[\frac{electrons}{cm^3}]$ and $v= \ell \cdot A$ is the volume of the bar, we can write the following equation: $I_n = \frac{q \cdot n \cdot \ell A}{t_{tr}}$. Writing $t_{tr} = \frac{\ell}{v_n} = \frac{\ell}{\mu_p \cdot E}$ we finally can say that
+\begin{equation} \label{eq:6}
+\tcbhighmath[drop fuzzy shadow = green, colback = green!20!white, colframe = green]{
+	I_n = \frac{q n \ell A}{\frac{\ell}{\mu_p \cdot E}} = \frac{q n \ell A}{\frac{\ell}{\mu_p \cdot \frac{V}{\ell}}}= \mu_n qn\frac{A}{\ell}\cdot V}
+\end{equation}
+We observe that \ref{eq:6} is the famous \B{Ohm's law} \index{Ohm's law}
+\begin{equation}
+	R = \frac{1}{\mu_n q n}\frac{\ell}{A}
+\end{equation}
+where all the variables are related to the physical state of the bar.
+\subsubsection{Resistivity and conductivity}
+Doing a reasoning analogue to that for $I_n$, we can observe that $I_p = \mu_p qn\frac{A}{\ell}\cdot V$. The general expression of the current intensity in the bar is so given by:
+\begin{equation}
+	I = (n\mu_n+p\mu_p)q\cdot \frac{\ell}{A} \cdot V
+\end{equation}
+\index{Resistivity}\index{Conductivity}
+where the first term, $(n\mu_n+p\mu_p)q = \sigma $ is called \I{conductivity} of the material.\\
+$\rho = \frac{1}{\sigma}$ is the resistivity of the material. 
+Resistivity is a special characteristic of the material. 
+\begin{equation}
+	\rho = [cm \cdot \Omega]
+\end{equation}
 
+\subsubsection{Diffusion Current} \index{Diffusion current}
+WDiffusion current is a current in a semiconductor caused by the diffusion of charge carriers. 
 
 
 \subsection{Semiconductors: a nuclear approach}
@@ -153,7 +215,7 @@ When the break happens, an electron \I{jumps} from valence band to conduction ba
 Without the necessary energy, electrons remain under the \I{Fermi level}, in a zone called \I{Valence Band}. when the \I{jump} occurs, electrons step over the \I{Fermi level} and stay in the \I{conduction band}. In the conduction band charge carrier have less constraints and can easily move in the crystalline lattice, depending on the intensity of the electro-magnetic field.
 \subsubsection{Silicon properties}
 \bite
-	\item The amount of charge carriers in a $cm^3$ (i.e. electrons in the conduction band) at ambient temperature $n = 10^{10 cm^{-3}}$. It is reasonably a little number compared to the global amount of atoms in a Silicon $cm^3$ ($5 \ 10^22$). [Think that if atoms were people on earth, only 7 people would result a cation with the loss of their electron]. 
+	\item The amount of charge carriers in a $cm^3$ (i.e. electrons in the conduction band) at ambient temperature $n = 10^{10} cm^{-3}$. It is reasonably a little number compared to the global amount of atoms in a Silicon $cm^3$ ($5 \cdot 10^{22}$). [Think that if atoms were people on earth, only 7 people would result a cation with the loss of their electron]. 
 	\item It is compatible with $SiO_2$ and $Al$
 \fite
 
@@ -166,8 +228,14 @@ This result is achieved inserting atoms of the doping element in the crystalline
 	\item $p 	[\dfrac{electrons}{cm^3}]$ number of holes 
 	\item $n 	[\dfrac{electrons}{cm^3}]$ number of electrons 
 \end{itemize}
+Remember that:
+\begin{itemize}
+	\item n-doping leaves free electron in conduction band and is obtained by inserting DONORS atoms of $Phosphorus$, or other elements from the V$^{th}$ group.
+	\item p-doping creates holes in the lattice structure and is obtained by inserting ACCEPTORS atoms of $Boron$, or other elements from the III$^{th}$ group. 
+\end{itemize}
 
-TO ADD: the part regarding mobility and resistance.
+
+
 
 \section{Diodes}
 Diodes are defined as a p-n junction.
@@ -175,7 +243,9 @@ Diodes are defined as a p-n junction.
 	\draw (0,0) to[Do, l=$Diode$, i>^=$i$, v = $v$] (2,0);3
 \end{circuitikz}
 Is is made by two parts: the left part (according to the figure) is a p-doped semiconductor in which there are holes left.
-The other part, on the contrary, is n-doped in which there are electrons left. 
+The other part, on the contrary, is n-doped in which there are electrons left.
+
+ 
 
 \newpage
 \section{FORMULAS}
