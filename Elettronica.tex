@@ -8,6 +8,7 @@
 \usepackage{hyperref} %handles hyperlinks
 \usepackage[skins,theorems]{tcolorbox} %coloured boxes
 \usepackage{siunitx} %SI units for ohm and others
+\usepackage{systeme} %used for system of non linear equations
 
 % --------------------------------------------------------------
 %                       PROJECT SPECIFIC PACKAGES
@@ -93,6 +94,7 @@ Common semiconductors material are:
 	\item Germanium, Ge. Atomic number = 32. IV ($14^{th}$) group
 	\item Gallium Arsenide, GaAs, a compound of Gallium and Arsenic.
 \end{itemize}
+Another important characteristic of semiconductors is that there are two charge carriers available, holes and electrons.
 
 \subsection{Movement analysis of electric charge in a semiconductor bar}
 Given a bar of length $\ell$, and an Electric field $E$, every electron in valence band will be affected by a force $F = q \cdot E$, and thus its acceleration $a$ will be, until the electron is subjected to the Electric field, $a(t)= \frac{F}{m} = \frac{q \cdot E}{m}$; being this quantity a constant respect to time, the speed will be a straight line with angular coefficient $m = a = \frac{q \cdot E}{ m}$:
@@ -198,9 +200,39 @@ Resistivity is a special characteristic of the material.
 \end{equation}
 
 \subsubsection{Diffusion Current} \index{Diffusion current}
-WDiffusion current is a current in a semiconductor caused by the diffusion of charge carriers. 
+The phenomenon of Diffusion Current is a characteristic of semiconductor materials. \\
+When there is a nonuniform concentration of charge carriers (e.g. \I{holes}) we can 'sit' in a point (the point 0 in the figure) and observe that there is a \I{gradient} $\frac{dp}{dx}$ for the function $p$ to the left direction. The existence of this gradient implies that on the left of it the holes concentration is higher and on the right of it it will be lower. Imaging this point as a surface, it will be reasonably to think that there are more holes that will come from right to left than otherwise. So, we can assert that there is a statistical current (only due to this statistical observation) over the semiconductor called \B{Diffusion Current}. \\
+The \I{Diffusion hole-current density} $J_p [\frac{A}{cm^2}]$ is proportional to the concentration gradient $\frac{dp}{dx}$ and is given by
+\begin{equation}
+	J_p = -qD_p\frac{dp}{dx}
+\end{equation}
+where $D_p$ is called the \I{diffusion constant} for holes. The minus sign is necessary because the gradient is directed to the direction of maximum increment, so that $J_p$ will be positive for increments of $x$. 
+\subsubsection{Total current}
+Hence we can state that the total current over a doped semiconductor bar is given by:
+\begin{equation}
+	I_{TOT} = I_p + I_n	
+\end{equation}
+where 
+\begin{enumerate}
+	\item $I_n$ = $q \mu_nn \frac{A}{L} V + q D_n \frac{dn}{dx}$
+	\item $I_p = q \mu_pp \frac{A}{L} - q D_p \frac{dp}{dx}$
+\end{enumerate}
 
 
+Diffusion current is a current in a semiconductor caused by the change of concentration of carriers in a semiconductor. \\
+\begin{center}
+	\includegraphics[width=7cm]{diffusion}
+\end{center}
+
+We can say, by an act of semi-religious acceptance, that the flux at point 0 is subjected to the law:
+\begin{equation}
+	\Phi_e(0) = \frac{1}{2}n(+\ell)v_{TH}-\frac{1}{2}n(-\ell)v_{TH}
+\end{equation}
+And, at the end of some points that I can't get at this moment, we conclude that
+\begin{equation}
+	I_{DIFF} = -qA\Phi_e= (qv_{TH}\ell)A\frac{dn}{dx} = qD_n\frac{dn}{dx}A
+\end{equation}
+Where $V_{TH}$ is the \I{thermal speed}, and $D_n$ is the \I{diffusion constant} of the electrons. 
 \subsection{Semiconductors: a nuclear approach}
 In 1913 Niehls Bohr \index{Nihels Bohr} proposed a model of atom in which \I{quantization of the angular momentum} \index{angular momentum} explained some interesting results regarding the light emitted by Hydrogen atoms heated. This model is very useful to explain the internal structure of atoms and can tell us something even about Silicon. A neutral Silicon atom possesses 14 protons and many electrons.
 \begin{itemize}
@@ -233,8 +265,20 @@ Remember that:
 	\item n-doping leaves free electron in conduction band and is obtained by inserting DONORS atoms of $Phosphorus$, or other elements from the V$^{th}$ group.
 	\item p-doping creates holes in the lattice structure and is obtained by inserting ACCEPTORS atoms of $Boron$, or other elements from the III$^{th}$ group. 
 \end{itemize}
-
-
+\subsubsection{The intrinsic Concentration}
+The Mass action Law states that, in doped semiconductor, the electrons and holes density are related by the following expression:
+\begin{equation}
+	n \cdot p = n_i^2
+\end{equation}
+Where $n_i$ is constant respect to doping but varies on temperature following the law:
+\begin{equation}
+	n_i^2 = A_0T^3\epsilon^{\frac{-E_{GO}}{kT}}
+\end{equation}
+where $E_{GO}$ is the energy gap at $0^{o}K$ in electron volts, k is the Boltzmann constant (in $eV/^oK$) and $A_0$ is a constant independent from T. 
+\begin{itemize}
+	\item Germanium at $300^o$ K: $n_i \simeq 10^{13} cm^{-3}$
+	\item Silicon at $300^o$ K: $n_i \simeq 10^{10} cm^{-3}$
+\end{itemize}
 
 
 \section{Diodes}
@@ -280,8 +324,12 @@ Electrostatic force between two charges $q_1 q_2$ at a distance $r$: \index{Elec
 	\begin{equation}
 		I = \frac{Q}{t} = \frac{V}{R} \ \ \ \ \ [Amp]
 	\end{equation}
-
-
+\index{Mass action Law} The \I{Law of mass action} is a relation about the concentration of free electrons and free holes in a semiconductor under thermal equilibrium. It states that the product of the concentration of free electrons and free holes is constant
+\begin{equation}
+	p\cdot n = n_i^2
+\end{equation}
+Where $n_i$, \I{intrinsic concentration}, is the concentration of electrons (or hole, that is the same) of a \I{pure} semiconductor.
+\index{Question} Question: $i_n$ isn't a properly constant value: it depends on temperature and material (?)
 
 
 
@@ -294,7 +342,26 @@ A common \I{AA} battery has a charge of 9 $kC$. \\
 In everyday terms, a Coulomb is $\frac{1}{2000}$ times the charge occurring to empty a normal AAA battery.
 
 
-
+\newpage
+\section{Millman's questions}
+\begin{itemize}
+	\item[2.2] \B{Define mobility and give its dimension}\\ 
+	\index{Mobility}Mobility is defined as the coefficient between the Electric field applied to a bar and the speed of charge carriers moving into the bar. Hence we can say $\mu = \frac{\bar v}{E} = [\frac{cm^2}{E}]$, it is usually described with non SI dimension $\frac{cm^2}{E}$.
+	\item[2.3] \B{Define conductivity and give its dimension}\\ 
+	\index{Conductivity} Conductivity is a material constant used to determine the resistance of a semiconductor. It is defined as $\sigma = (n\mu_n + p\mu_p)q$ and depends on doping. Its dimension are $[\frac{1}{\Omega \cdot m} = \frac{S}{m}]$ because it can also be expressed as $\sigma = \frac{1}{\rho} = \frac{\ell}{R\cdot A}$
+	\item[2.4] \B{Define a hole (in a semiconductor)}\\ 
+	A hole is the positive charge generated by the migration of an electron from an atom to another, leaving the first atom positively charged and neutralizing the second. In a general approach we can consider the holes mobility as a proper current. 
+	\item[2.6] \B{Define intrinsic concentration of holes}\\
+	\index{Intrinsic concentration} intrinsic concentration of holes is a coefficient $n_i$ temperature dependent that indicates the amount of free electrons (or holes, that is the same) in a pure semiconductor. The relation between the intrinsic concentration of holes and the holes density is given by the following $n_i^2 = n \cdot p$. At $0^o K, n_i = 0$. This fact has two explanation: the first is that at the absolute zero no energy is given to the electrons from the outside, hence it is impossible to break the covalent bonds between atoms. The second is based on the expression of $n_i$: $n_i \propto \epsilon^{-\frac{1}{T}}$, so the limit for this function for $T\rightarrow0 = 0$. 
+	\item[2.9] \B{Define donor and acceptors impurities}\\ 
+	\index{Donor}\index{Acceptor}A semiconductor can be doped by donors (acceptors) atoms from the IV (III) group, like Phosphorus (Boron). These atoms, called impurities, fit in the lattice structure and tend to donate (accept) an electron, due to their atomic structure. In fact, Phosphorus (Boron) atoms reach their stability with 3 (5) electrons. 
+	\item[2.2] \B{A semiconductor is doped with both donors and acceptors of concentration $N_D$ and $N_A$ respectively. Write the equation from which to determine the electron and hole concentrations (n and p)}\\
+	The equation ruling these relations are 
+	\[
+{n \cdot p = n_i^2}, {N_p + p = N_n + n}
+	\]
+	
+\end{itemize}
 
 
 
